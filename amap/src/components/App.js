@@ -15,11 +15,12 @@ class App extends React.Component {
 		this.addVeggie = this.addVeggie.bind(this);
 	}
 
-	addVeggie() {
+	addVeggie(veggie) {
 		//maj le state
-		const veggies = "veggie-1";
+		const veggies = {...this.state.veggies};
 
 		//add nos nouveaux légumes
+		veggies["veggie-1"] = veggie;
 
 		//appliquer le texte
 		this.setState({veggies});
