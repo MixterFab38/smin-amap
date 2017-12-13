@@ -20,7 +20,8 @@ class App extends React.Component {
 		const veggies = {...this.state.veggies};
 
 		//add nos nouveaux légumes
-		veggies["veggie-1"] = veggie;
+		const timestamp = Date.now();
+		veggies['veggie-${timestamp}'] = veggie;
 
 		//appliquer le texte
 		this.setState({veggies});

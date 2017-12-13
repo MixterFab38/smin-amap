@@ -13,7 +13,9 @@ class AddVeggieForm extends React.Component {
 		 	image: this.image.value,
 		}
 
+		this.props.addVeggie(veggie);
 		console.log(veggie);
+		this.veggieForm.reset();
 	}
 
 	render() {
