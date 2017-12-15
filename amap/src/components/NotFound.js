@@ -1,14 +1,11 @@
 import React from 'react';
 
-const NotFound = (props) =>  {
-
-	return (
-		<header className="top">
-			<h2>
-				404 - Not Found!
-			</h2>
-		</header>
-	)
+class NotFound extends React.Component {
+  render() {
+    return (
+      <h2>Not Found !!!!!</h2>
+    )
+  }
 }
 
 export default NotFound;
