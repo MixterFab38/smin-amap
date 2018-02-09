@@ -2,8 +2,16 @@ import React from 'react';
 
 class Veggie extends React.Component {
   render() {
+    var addToCart = [] //Tableau
+    const details = this.props.details;
+    if (details.status === "available"){
+      addToCart.push(<button onClick={() => this.getveggie()}>Ajouter au panier</button>)
+    } else {
+      addToCart.push(<button disabled>Epuisé !</button>)
+    }
+
   	//const details = this.props.details;
-  	const { details } = this.props;
+  	
     return (
       <li className="menu-veggie">
       	<img src={details.image} alt={details.name} />
@@ -12,7 +20,7 @@ class Veggie extends React.Component {
       		<span className="price">{details.price}</span>
       	</h3>
       	<p>{details.desc}</p>
-      	<button id="addcart" name="addcart" disabled={details.status === "unavailable"}>Aujouter au panier</button>
+        {addToCart}
       </li>
     )
   }

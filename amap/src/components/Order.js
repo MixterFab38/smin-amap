@@ -8,7 +8,7 @@ class Order extends React.Component {
         <ul className="order">
           <li className="total">
             <strong>Total:</strong>
-            36,2EUR
+            36,20EUR
           </li>
         </ul>
       </div>
