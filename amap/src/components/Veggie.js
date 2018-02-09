@@ -12,9 +12,14 @@ class Veggie extends React.Component {
       		<span className="price">{details.price}</span>
       	</h3>
       	<p>{details.desc}</p>
-      	<button>Ajouter au panier</button>
+      	<button id="addcart" name="addcart" disabled={details.status === "unavailable"}>Aujouter au panier</button>
       </li>
     )
+  }
+
+  ajout()
+  {
+    
   }
 }
 
