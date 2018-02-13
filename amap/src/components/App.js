@@ -11,6 +11,7 @@ class App extends React.Component {
 
     this.addVeggie = this.addVeggie.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
+    this.addOrder = this.addOrder.bind(this);
 
     this.state = {
       veggies: {},
@@ -35,6 +36,28 @@ class App extends React.Component {
     });
   }
 
+  addOrder(order) {
+    const orders = {...this.state.orders}
+    Object
+    .keys(orders)
+    .map(function (key){
+      if (orders[key].name == order.name && orders[key].numberOfProducts < orders[key].numberOfAvailableProducts){
+        order.numberOfProducts = orders[key].numberOfProducts + 1
+        order.finalPrice = (orders[key].price * (orders[key].numberOfProducts + 1))
+        }
+        if (orders[key].name == order.name && orders[key].numberOfProducts >= orders[key].numberOfAvailableProducts){
+          order.numberOfProducts = orders[key].numberOfProducts
+          order.finalPrice = (orders[key].price * (orders[key].numberOfProducts))
+        }
+        
+
+    })
+    orders[order.name] = order
+    this.setState({ orders })
+    var veggie = {orders}
+    localStorage.setItem('orders', JSON.stringify(veggie));
+  }
+
   render() {
     return (
       <div className="amap">
@@ -44,12 +67,14 @@ class App extends React.Component {
           	{
           		Object
           			.keys(this.state.veggies)
-          			.map(key => <Veggie key={key} details={this.state.veggies[key]}/>)
+          			.map(key => <Veggie addOrder={this.addOrder} key = {key}   details = {this.state.veggies[key]} />  )
           	}
           </ul>
         </div>
-        <Order />
-        <Inventory addVeggie={this.addVeggie} loadSamples={this.loadSamples} />
+
+        <Order addOrder={this.addOrder} details={this.state.orders}/>
+        <Inventory addVeggie={this.addVeggie} loadSamples={this.loadSamples}/>
+
       </div>
     )
   }
