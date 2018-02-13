@@ -23,8 +23,8 @@ class AddVeggieForm extends React.Component {
         <input ref={(input) => this.name = input} type="text" placeholder="Veggie Name" />
         <input ref={(input) => this.price = input} type="text" placeholder="Veggie Price" />
         <select ref={(input) => this.status = input}>
-          <option value="available">Frais!</option>
-          <option value="unavailable">Plus en stock!</option>
+          <option value="available">Frais !</option>
+          <option value="unavailable">En rupture !</option>
         </select>
         <textarea ref={(input) => this.desc = input} placeholder="Veggie Desc" ></textarea>
         <input ref={(input) => this.image = input} type="text" placeholder="Veggie Image" />

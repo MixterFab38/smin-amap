@@ -3,45 +3,44 @@ import { formatPrice } from '../helpers.js';
 
 class Order extends React.Component {
 
-	constructor(){
-		super()
-		this.state = {
-			total: 0,
-			nbTotal: 0,
-		}
-	}
-
-	createOrder(veggie) {
-    const order = {
-    	name: veggie.name,
-		image: veggie.image,
-		price: veggie.price,
-		numberOfProducts: 1,
-		numberOfAvailableProducts: veggie.nombreProduitDispo,
-		finalPrice: veggie.price,
-    }
-    this.props.addOrder(order);
-  }
+  deleteProduit(order, veggie){
+  		const orders = veggie
+  		var that = this
+  		Object
+	    .keys(orders)
+	    .map(function (key){
+	      if (orders[key].name == order.name && orders[key].nombreProduits > 0){
+	        order.nombreProduits = orders[key].nombreProduits - 1
+	        order.prixFinal = (orders[key].price * (orders[key].nombreProduits))
+	        
+	      }
+	    })
+	    orders[order.name] = order
+        this.setState({ orders })
+        var veggie = {orders}
+        localStorage.setItem('orders', JSON.stringify(veggie));
+  	}
 
   	render() {
   		if (typeof this.props.details != "undefined" && this.props.details != 0 ){
-  			var that = this;
-  			var numberOfProducts = 0
-  			var nombreProduitTotal = 0
-  			var price = 0
+  			var This = this;
+  			var nbProduits = 0
+  			var nbProduitTot = 0
+  			var prix = 0
 	    	return (
 		    	<div className="order-wrap">
-			        <h2>Caddie</h2>
+			        <h2>Votre panier</h2>
 			        	{
 				            Object
 			              	.keys(this.props.details)
 			              	.map(function (key){
-			              		price = price + that.props.details[key].finalPrice
+			              		prix = prix + This.props.details[key].prixFinal
 			              		
 				              	return(
 				              		
 					              		<div>
-					              		    <p>{that.props.details[key].nombreProduits}Kg de <b>{that.props.details[key].name}</b> pour un prix de <b className="price">{formatPrice(that.props.details[key].finalPrice)+"€"}</b></p>
+					              		    <p>{This.props.details[key].nombreProduits}Kg de {This.props.details[key].name} : {formatPrice(This.props.details[key].prixFinal)}</p>
+					              		    <button onClick={() => This.deleteProduit(This.props.details[key], This.props.details)}>Retirer</button>
 					              		</div>
 					              		
 				              	)
@@ -52,18 +51,18 @@ class Order extends React.Component {
 						            Object
 					              	.keys(this.props.details)
 					              	.map(function (key){
-					              		nombreProduitTotal = nombreProduitTotal + that.props.details[key].nombreProduits
+					              		nbProduitTot = nbProduitTot + This.props.details[key].nbProduits
 					              	})
 					            }
-			            		<strong>Total (TTC) :</strong>{formatPrice(price) +"€"}
-		            		
+			            		<strong>Total : {formatPrice(prix)}</strong>
 	      		</div>
 	    	)
-	    } else {
+	    } 
+	    else 
+	    {
 	    	return (
 		    	<div className="order-wrap">
-			        <h2>Panier</h2>
-		            <p><strong>Votre panier est actuellement vide !</strong> Sélectionnez des légumes dans la colonne de gauche !</p>
+			        <h2>Votre panier</h2>
 	      		</div>
 	    	)
 	    }
